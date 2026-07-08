@@ -1,0 +1,26 @@
+
+> react-example@0.0.0 build
+> vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs
+
+[36mvite v6.4.3 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 2993 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                          [39m[1m[2m    0.42 kB[22m[1m[22m[2m │ gzip:   0.29 kB[22m
+[2mdist/[22m[35massets/index-HqYV3xX6.css           [39m[1m[2m  113.27 kB[22m[1m[22m[2m │ gzip:  16.27 kB[22m
+[2mdist/[22m[36massets/purify.es-Csrj9YNg.js        [39m[1m[2m   28.14 kB[22m[1m[22m[2m │ gzip:  10.69 kB[22m
+[2mdist/[22m[36massets/index.es-DXN8ydGL.js         [39m[1m[2m  159.60 kB[22m[1m[22m[2m │ gzip:  53.51 kB[22m
+[2mdist/[22m[36massets/html2canvas.esm-QH1iLAAe.js  [39m[1m[2m  202.38 kB[22m[1m[22m[2m │ gzip:  48.04 kB[22m
+[2mdist/[22m[36massets/index-yKe5_Sw-.js            [39m[1m[33m1,666.40 kB[39m[22m[2m │ gzip: 490.82 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 31.72s[39m
+
+  dist\server.cjs      59.3kb
+  dist\server.cjs.map  97.7kb
+
+Done in 21ms

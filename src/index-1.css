@@ -1,0 +1,1075 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+*, ::before, ::after {
+  box-sizing: border-box !important;
+}
+
+html, body, #root {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top left, rgba(0, 245, 212, 0.14), transparent 18%),
+              radial-gradient(circle at bottom right, rgba(123, 97, 255, 0.10), transparent 20%),
+              linear-gradient(180deg, #030712 0%, #020617 100%);
+  color: #F8FAFC;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Reduce global base font-size for a more compact layout */
+html { font-size: 13px; }
+body { font-size: 0.95rem; line-height: 1.45; }
+
+/* Slightly tighter default spacing for panels/cards */
+.nexus-panel, .nexus-card, .nexus-card-strong {
+  padding: 0.9rem;
+  border-radius: 1rem;
+}
+
+/* Slightly smaller headings while keeping visual hierarchy */
+h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.5rem); }
+h3 { font-size: clamp(1.05rem, 2.2vw, 1.125rem); }
+
+/* Reduce large card shadows and spacing for a neater composition */
+.nexus-card { box-shadow: 0 18px 40px rgba(0,0,0,0.18); }
+.nexus-card-hover:hover { transform: translateY(-4px); }
+
+body {
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(0, 245, 212, 0.24);
+  color: #ffffff;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* GLOBAL TYPOGRAPHY SIZES FOR BOTH THEMES */
+h1 {
+  font-weight: 800;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+h4 {
+  font-weight: 600;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom fade scrollbar details */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.18; transform: scale(1); }
+  50% { opacity: 0.32; transform: scale(1.05); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes radarPulse {
+  0% { transform: scale(1); opacity: 0.16; }
+  50% { transform: scale(1.35); opacity: 0.08; }
+  100% { transform: scale(1); opacity: 0.16; }
+}
+
+.nexus-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, rgba(0, 245, 212, 0.14), transparent 18%),
+              radial-gradient(circle at bottom right, rgba(123, 97, 255, 0.10), transparent 24%),
+              linear-gradient(180deg, #030712 0%, #020617 100%);
+}
+
+.student-mode .nexus-shell {
+  background: radial-gradient(circle at top left, rgba(0, 245, 212, 0.16), transparent 18%),
+              radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.12), transparent 22%),
+              linear-gradient(180deg, #04141d 0%, #030814 100%);
+}
+
+.professional-mode .nexus-shell {
+  background: radial-gradient(circle at top left, rgba(123, 97, 255, 0.18), transparent 18%),
+              radial-gradient(circle at bottom right, rgba(0, 206, 255, 0.12), transparent 22%),
+              linear-gradient(180deg, #020514 0%, #020617 100%);
+}
+
+.student-mode .glass-panel,
+.student-mode .nexus-card,
+.student-mode .nexus-card-strong {
+  background: rgba(6, 16, 30, 0.92);
+  border-color: rgba(0, 245, 212, 0.18);
+}
+
+.professional-mode .glass-panel,
+.professional-mode .nexus-card,
+.professional-mode .nexus-card-strong {
+  background: rgba(10, 12, 24, 0.92);
+  border-color: rgba(123, 97, 255, 0.18);
+}
+
+.nexus-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.nexus-panel {
+  background: rgba(7, 11, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.75rem;
+  backdrop-filter: blur(22px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22);
+}
+
+.nexus-panel-strong {
+  background: rgba(10, 14, 28, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.75rem;
+  backdrop-filter: blur(28px);
+}
+
+.nexus-card {
+  background: rgba(8, 12, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+}
+
+.nexus-card-strong {
+  background: rgba(11, 16, 34, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.nexus-card-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.nexus-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 245, 212, 0.18);
+  box-shadow: 0 36px 88px rgba(0, 245, 212, 0.14);
+}
+
+.nexus-glow {
+  box-shadow: 0 0 40px rgba(0, 245, 212, 0.2);
+}
+
+.nexus-button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.nexus-button:hover {
+  transform: translateY(-1px);
+}
+
+.nexus-text-muted {
+  color: #94a3b8;
+}
+
+.nexus-text-accent {
+  color: #00f5d4;
+}
+
+.nexus-border-accent {
+  border-color: rgba(0, 245, 212, 0.16);
+}
+
+.nexus-glow-orb {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(72px);
+  opacity: 0.3;
+  animation: pulseGlow 8s infinite;
+}
+
+.nexus-link-fade {
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.nexus-link-fade:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.nexus-hero-text {
+  letter-spacing: -0.04em;
+}
+
+.nexus-hero-subtext {
+  line-height: 1.8;
+}
+
+.nexus-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.13) 50%, rgba(255,255,255,0.05) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* HIGH-CONTRAST LIGHT THEME GLOBAL OVERRIDES */
+.light-theme {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.light-theme .min-h-screen,
+.light-theme .h-screen,
+.light-theme div.bg-\[\#070B16\],
+.light-theme div.pl-64,
+.light-theme div.flex-1 {
+  background-color: #f1f5f9 !important;
+}
+
+/* Base Light Theme Cards & Panels with Superb Contrast and Elevation */
+.light-theme .glass-panel {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04) !important;
+  color: #0f172a !important;
+  border-radius: 1.25rem !important;
+  padding: 1.5rem;
+}
+
+/* Light Theme Card Hover states */
+.light-theme .glass-panel-hover:hover {
+  border-color: #94a3b8 !important;
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Header & Typography Hierarchy Requirements */
+.light-theme h1 {
+  color: #0f172a !important;
+}
+
+.light-theme h2 {
+  color: #0f172a !important;
+}
+
+.light-theme h3 {
+  color: #1e293b !important;
+}
+
+.light-theme h4 {
+  color: #1e293b !important;
+}
+
+/* Body Text & Small Labels Accessibility Requirements */
+.light-theme p {
+  color: #1e293b !important; /* Slate-800 - dark, solid, highly readable */
+}
+
+.light-theme label {
+  color: #0f172a !important; /* Slate-900 */
+}
+
+/* Nav Fixed Sidebar Redesign: Premium Light Weight and High Prominence */
+.light-theme nav.fixed {
+  background-color: #ffffff !important;
+  border-right: 1.5px solid #cbd5e1 !important;
+  box-shadow: 4px 0 20px rgba(15, 23, 42, 0.03) !important;
+  width: 17rem !important; /* Slightly wider sidebar */
+}
+
+.light-theme nav .h-20 {
+  border-bottom: 1.5px solid #cbd5e1 !important;
+}
+
+.light-theme nav button {
+  font-size: 1.0625rem !important; /* 17px Sidebar Labels */
+  font-weight: 600 !important; /* Medium/semi-bold weight */
+  padding: 0.875rem 1.25rem !important;
+  border-radius: 0.875rem !important;
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+  color: #334155 !important;
+}
+
+.light-theme nav button:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Selected tab inside Navigation */
+.light-theme nav button.text-\[\#00C6FF\],
+.light-theme nav button[class*="bg-gradient-to-r"] {
+  background-image: none !important;
+  background-color: #eff6ff !important; /* Premium light blue background */
+  border-left: 4px solid #0284c7 !important;
+  color: #0284c7 !important;
+}
+
+.light-theme nav button.text-\[\#00C6FF\] svg,
+.light-theme nav button[class*="bg-gradient-to-r"] svg {
+  color: #0284c7 !important;
+}
+
+/* Footers and Info Banners */
+.light-theme footer {
+  background-color: #ffffff !important;
+  border-top: 1.5px solid #cbd5e1 !important;
+}
+
+.light-theme footer p,
+.light-theme footer span {
+  color: #0f172a !important;
+}
+
+/* Quick Action Premium Cards Styling (colorful, engaging, not childish) */
+.light-theme .bg-gradient-to-br.from-\[\#7B61FF\]\/10 {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%) !important;
+  border: 1.5px solid #818cf8 !important;
+}
+
+.light-theme .bg-red-950\/20,
+.light-theme .bg-red-950\/40 {
+  background-color: #fef2f2 !important;
+  border: 1.5px solid #f87171 !important;
+}
+
+.light-theme .bg-emerald-950\/20 {
+  background-color: #ecfdf5 !important;
+  border: 1.5px solid #34d399 !important;
+}
+
+/* Buttons in Light Theme */
+.light-theme button[type="submit"],
+.light-theme button[class*="bg-gradient-to-r"],
+.light-theme button[class*="bg-gradient-to-tr"] {
+  background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+  border: none !important;
+  font-size: 0.9375rem !important; /* 15px */
+}
+
+.light-theme button[type="submit"]:hover,
+.light-theme button[class*="bg-gradient-to-r"]:hover,
+.light-theme button[class*="bg-gradient-to-tr"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35) !important;
+}
+
+/* Forms & elements inside light theme */
+.light-theme input,
+.light-theme select,
+.light-theme select option,
+.light-theme textarea {
+  background-color: #ffffff !important;
+  border: 2px solid #94a3b8 !important; /* Solid high contrast border */
+  color: #0f172a !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important; /* slightly smaller for compactness */
+  padding: 0.75rem 1rem !important;
+  border-radius: 0.75rem !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Compact component adjustments: buttons, nav, cards */
+nav.fixed {
+  width: 14rem !important;
+}
+
+.nexus-button {
+  font-size: 0.875rem !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 0.6rem !important;
+  line-height: 1 !important;
+}
+
+.nexus-button.small {
+  font-size: 0.8rem !important;
+  padding: 0.375rem 0.625rem !important;
+}
+
+/* Global nav button compactness */
+nav button {
+  font-size: 0.9rem !important;
+  padding: 0.6rem 0.9rem !important;
+  border-radius: 0.7rem !important;
+}
+
+/* Reduce card/panel depth and spacing for neater layout */
+.nexus-panel, .nexus-card, .nexus-card-strong {
+  padding: 0.75rem !important;
+  border-radius: 0.9rem !important;
+}
+
+.nexus-panel { box-shadow: 0 16px 36px rgba(0,0,0,0.16) !important; }
+.nexus-card { box-shadow: 0 12px 28px rgba(0,0,0,0.14) !important; }
+
+/* Slightly tighter list and label sizes */
+label, .nexus-text-muted { font-size: 0.85rem !important; }
+
+/* Header compactness */
+.h-20 { height: 4.5rem !important; }
+
+
+.light-theme input:focus,
+.light-theme select:focus,
+.light-theme textarea:focus {
+  border-color: #4f46e5 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+}
+
+.light-theme select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Accents inside light theme for high-contrast visibility */
+.light-theme .text-\[\#00C6FF\],
+.light-theme .text-cyan-accent {
+  color: #0284c7 !important; /* Premium sky blue */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-\[\#7B61FF\],
+.light-theme .text-purple-accent {
+  color: #4f46e5 !important; /* Indigo */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-\[\#00E38C\],
+.light-theme .text-emerald-accent {
+  color: #059669 !important; /* Emerald green */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-red-400,
+.light-theme .text-\[\#FF4D4D\] {
+  color: #dc2626 !important;
+  font-weight: 700 !important;
+}
+
+.light-theme .bg-\[\#00E38C\]\/10 {
+  background-color: #d1fae5 !important;
+  color: #065f46 !important;
+}
+
+.light-theme .border-\[\#00C6FF\] { border-color: #0284c7 !important; }
+.light-theme .border-\[\#7B61FF\] { border-color: #4f46e5 !important; }
+.light-theme .border-\[\#00E38C\] { border-color: #059669 !important; }
+
+/* CHAT AREA PREMIUM ACCESS & REVOLUT STYLE */
+.light-theme div[class*="h-[calc(100vh-80px)]"] {
+  background-color: #f8fafc !important;
+  border-radius: 1.5rem !important;
+  border: 1.5px solid #cbd5e1 !important;
+  padding: 2rem !important;
+}
+
+/* Chat bubble styling */
+.light-theme .light-theme-bubble,
+.light-theme div[class*="rounded-tl-none"].bg-white\/\[0\.03\] {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+  border-radius: 1.25rem !important;
+  border-top-left-radius: 0 !important;
+  padding: 1.25rem !important;
+}
+
+.light-theme div[class*="rounded-tr-none"].bg-gradient-to-br {
+  background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%) !important;
+  color: #ffffff !important;
+  border-radius: 1.25rem !important;
+  border-top-right-radius: 0 !important;
+  padding: 1.25rem !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
+}
+
+.light-theme div[class*="rounded-tr-none"].bg-gradient-to-br span,
+.light-theme div[class*="rounded-tr-none"].bg-gradient-to-br p,
+.light-theme div[class*="rounded-tr-none"].bg-gradient-to-br text {
+  color: #ffffff !important;
+}
+
+/* Chat Input configuration */
+.light-theme form input {
+  background-color: #ffffff !important;
+  border: 2px solid #7b61ff !important;
+  color: #0f172a !important;
+  font-size: 1rem !important;
+  padding: 1.25rem 1.5rem !important;
+  box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Preset Options ChatGPT-style */
+.light-theme button[class*="bg-white/[0.02]"].text-xs {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+  color: #1e293b !important;
+}
+
+.light-theme button[class*="bg-white/[0.02]"].text-xs:hover {
+  background-color: #f1f5f9 !important;
+  border-color: #4f46e5 !important;
+}
+
+/* Override chart tooltip color default styles in light theme */
+.light-theme .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* ====================================================================== */
+/*   ULTRA-PREMIUM LIGHT THEME SYSTEMATIC ACCESSIBILITY & VISIBILITY OVERRIDES */
+/* ====================================================================== */
+
+/* 1. Global Reset for Light Theme Layout, Panels, and Background Elements */
+.light-theme,
+.light-theme .min-h-screen,
+.light-theme .h-screen,
+.light-theme [class*="min-h-screen"],
+.light-theme div[class*="bg-[#0a0e1a]"],
+.light-theme div[class*="bg-[#070B16]"],
+.light-theme div[class*="bg-[#070b16]"] {
+  background-color: #f1f5f9 !important; /* Clean soft-slate first layer */
+  color: #0f172a !important; /* High contrast dark-navy base */
+}
+
+/* Force all major container elements referencing dark hex codes to map to white panels */
+.light-theme .glass-panel,
+.light-theme div[class*="bg-[#0c1328]"],
+.light-theme div[class*="bg-[#090e1c]"],
+.light-theme div[class*="bg-[#090d1c]"],
+.light-theme div[class*="bg-[#080d1a]"],
+.light-theme div[class*="bg-[#0a0f1e]"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  opacity: 1 !important;
+  border: 1.5px solid #cbd5e1 !important; /* Hard contrast visible borders */
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 10px 15px -3px rgba(15, 23, 42, 0.03) !important;
+  color: #0f172a !important;
+  backdrop-filter: none !important;
+}
+
+/* 2. Structured Hierarchy Layering: Nested sub-containers map to soft slate-gray inside white panels */
+.light-theme div[class*="bg-[#0d1326]"],
+.light-theme div[class*="bg-[#070b16]/"],
+.light-theme div[class*="bg-[#070B16]/"],
+.light-theme div[class*="bg-[#0a0f1e]/"],
+.light-theme div[class*="bg-[#0c1328]/"],
+.light-theme div[class*="bg-white/[0.01]"],
+.light-theme div[class*="bg-white/[0.02]"],
+.light-theme div[class*="bg-white/[0.03]"],
+.light-theme div[class*="bg-white/[0.05]"],
+.light-theme div[class*="bg-white/5"],
+.light-theme div[class*="bg-white/10"],
+.light-theme div[class*="bg-[#0d1326]"] > div {
+  background-color: #f8fafc !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Reset border white/5 and border white/10 overlays to strong-contrast slate gray borders */
+.light-theme [class*="border-white/"],
+.light-theme [class*="border-gray-"] {
+  border-color: #cbd5e1 !important;
+}
+
+/* 3. Text & Typography Readability Overhauls - Eliminate Bleeding and Invisible Texts */
+.light-theme .text-white,
+.light-theme [class*="text-white"],
+.light-theme .text-slate-50,
+.light-theme [class*="text-slate-50"],
+.light-theme .text-gray-100,
+.light-theme [class*="text-gray-100"],
+.light-theme .text-gray-200,
+.light-theme [class*="text-gray-200"] {
+  color: #0f172a !important; /* Strong dark navy for text */
+}
+
+/* Make gray subtitles perfectly readable */
+.light-theme .text-gray-300,
+.light-theme [class*="text-gray-300"],
+.light-theme .text-gray-400,
+.light-theme [class*="text-gray-400"],
+.light-theme .text-slate-400,
+.light-theme [class*="text-slate-400"] {
+  color: #1e293b !important; /* Strong Slate-800 contrast */
+  font-weight: 550 !important;
+}
+
+/* Low-contrast captions or labels mapped to slate-700 */
+.light-theme .text-gray-500,
+.light-theme [class*="text-gray-500"],
+.light-theme .text-slate-500,
+.light-theme [class*="text-slate-500"] {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+/* Small status texts size & readability minimums */
+.light-theme .text-xs,
+.light-theme .text-\[10px\],
+.light-theme .text-\[11px\],
+.light-theme [class*="text-xs"],
+.light-theme [class*="text-[10px]"] {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+/* 4. Color Brand Accents Mapping for Crisp Visibility in Light Theme */
+.light-theme .text-\[\#00C6FF\],
+.light-theme .text-cyan-accent {
+  color: #0284c7 !important; /* High contrast blue */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-\[\#7B61FF\],
+.light-theme .text-purple-accent {
+  color: #4f46e5 !important; /* Indigo Purple */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-\[\#00E38C\],
+.light-theme .text-emerald-accent {
+  color: #059669 !important; /* Balanced emerald */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-red-400,
+.light-theme .text-\[\#FF4D4D\],
+.light-theme .text-red-500 {
+  color: #dc2626 !important; /* Strong dark red */
+  font-weight: 700 !important;
+}
+
+.light-theme .text-\[\#FF9F43\],
+.light-theme .text-orange-500 {
+  color: #ea580c !important; /* Clear orange warning status */
+  font-weight: 700 !important;
+}
+
+/* 5. Custom Button and Interaction Overrides */
+/* Submit & primary action buttons keep white text on colorful gradients */
+.light-theme button[type="submit"],
+.light-theme button[class*="bg-gradient-to-"],
+.light-theme button[class*="from-[#00C6FF]"],
+.light-theme button[class*="from-[#7B61FF]"],
+.light-theme a[class*="bg-gradient-to-"],
+.light-theme button[class*="bg-gradient-to-tr"],
+.light-theme a[class*="bg-gradient-to-tr"] {
+  color: #ffffff !important;
+  background-image: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%) !important;
+}
+
+.light-theme button[type="submit"] *,
+.light-theme button[class*="bg-gradient-to-"] *,
+.light-theme button[class*="bg-gradient-to-tr"] *,
+.light-theme a[class*="bg-gradient-to-tr"] * {
+  color: #ffffff !important;
+}
+
+/* Chat bubbble of current user stays solid colored gradient with white text */
+.light-theme div[class*="rounded-tr-none"].bg-gradient-to-br,
+.light-theme div[class*="rounded-tr-none"].bg-gradient-to-br * {
+  color: #ffffff !important;
+}
+
+/* 6. Overhauling High-Fidelity Tables, Badges, and Financial Records */
+.light-theme table {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden;
+}
+
+.light-theme table tr {
+  border-bottom: 1.5px solid #e2e8f0 !important;
+}
+
+.light-theme table tr:hover {
+  background-color: #f1f5f9 !important;
+}
+
+.light-theme table th {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+}
+
+.light-theme table td {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+.light-theme table td span[class*="bg-white/5"] {
+  background-color: #e2e8f0 !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+  font-weight: 700 !important;
+}
+
+/* 7. Wallet Cards, Bank Accounts, and Payment Methods Visual Reset */
+.light-theme .nexus-wallet-card,
+.light-theme div[class*="nexus-wallet-card"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 2.5px solid #94a3b8 !important; /* Thick contrast border */
+  box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08) !important;
+}
+
+.light-theme .nexus-wallet-card:hover {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 12px 20px rgba(79, 70, 229, 0.15) !important;
+}
+
+.light-theme .nexus-wallet-card *,
+.light-theme .nexus-wallet-card span,
+.light-theme .nexus-wallet-card p,
+.light-theme .nexus-wallet-card div {
+  color: #0f172a !important;
+}
+
+.light-theme .nexus-wallet-card .text-\[\#00C6FF\],
+.light-theme .nexus-wallet-card .text-\[\#7B61FF\] {
+  color: #4f46e5 !important; /* Rich deep color branding inside payment cards */
+  font-weight: 750 !important;
+}
+
+/* 8. Modern Input Controls, Dropdowns & Form Field Overrides */
+.light-theme input,
+.light-theme select,
+.light-theme textarea {
+  background-color: #ffffff !important;
+  border: 2px solid #94a3b8 !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: #475569 !important;
+  font-weight: 500 !important;
+}
+
+.light-theme select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* 9. Footers & Live Intelligence Banner System */
+.light-theme footer,
+.light-theme [class*="footer"] {
+  background-color: #ffffff !important;
+  border-top: 1.5px solid #cbd5e1 !important;
+}
+
+.light-theme footer *,
+.light-theme [class*="footer"] * {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+/* 10. Sidebar Navigation Panel Overrides and Brand Gradient */
+.light-theme nav.fixed {
+  background-color: #ffffff !important;
+  border-right: 1.5px solid #cbd5e1 !important;
+  box-shadow: 4px 0 20px rgba(15, 23, 42, 0.03) !important;
+}
+
+.light-theme nav.fixed * {
+  color: #1e293b !important;
+}
+
+/* Ensure the brand gradient displays beautifully with high-contrast text pathing */
+.light-theme nav.fixed span[class*="bg-clip-text"] {
+  background-image: linear-gradient(to right, #0f172a, #0284c7, #4f46e5) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+}
+
+/* Interactive navigation lists */
+.light-theme nav.fixed button {
+  color: #334155 !important;
+}
+
+.light-theme nav.fixed button:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Specific component containers, alert cards and indicators */
+.light-theme div[class*="bg-red-950/20"],
+.light-theme div[class*="bg-red-950/40"],
+.light-theme div[class*="bg-red-500/10"] {
+  background-color: #fef2f2 !important;
+  border: 1.5px solid #fca5a5 !important;
+}
+
+.light-theme div[class*="bg-emerald-950/20"],
+.light-theme div[class*="bg-[#00E38C]/15"] {
+  background-color: #ecfdf5 !important;
+  border: 1.5px solid #a7f3d0 !important;
+}
+
+.light-theme div[class*="bg-red-950/20"] *,
+.light-theme div[class*="bg-red-950/40"] *,
+.light-theme div[class*="bg-red-500/10"] *,
+.light-theme div[class*="bg-emerald-950/20"] *,
+.light-theme div[class*="bg-[#00E38C]/15"] * {
+  color: #1e293b !important;
+}
+
+
+/* ========================================================== */
+/* COHESIVE & PREMIUM DARK THEME CONTRAST & HIERARCHY OVERRIDES */
+/* ========================================================== */
+
+.dark-theme {
+  background-color: #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+/* Consistent deep navy backgrounds */
+.dark-theme .min-h-screen,
+.dark-theme .h-screen,
+.dark-theme div.bg-\[\#070B16\],
+.dark-theme div.pl-64,
+.dark-theme div.pl-\[17rem\],
+.dark-theme div.flex-1 {
+  background-color: #0b0f19 !important;
+}
+
+/* Base Dark Theme Panels with High Contrast and Sleek Borders */
+.dark-theme .glass-panel {
+  background-color: #121829 !important; /* Premium Navy-Charcoal background */
+  background-image: none !important;
+  border: 1.5px solid #1e293b !important; /* Steel dark slate border */
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4) !important;
+  color: #f8fafc !important;
+  border-radius: 1.25rem !important;
+  padding: 1.5rem;
+}
+
+/* Dark Theme hover states */
+.dark-theme .glass-panel-hover:hover {
+  border-color: #334155 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Typography Colors for Dark Theme */
+.dark-theme h1 {
+  color: #ffffff !important;
+}
+
+.dark-theme h2 {
+  color: #ffffff !important;
+}
+
+.dark-theme h3 {
+  color: #f8fafc !important;
+}
+
+.dark-theme h4 {
+  color: #f1f5f9 !important;
+}
+
+/* Body Text & Small Labels Accessibility Requirements in Dark Theme */
+.dark-theme p {
+  color: #e2e8f0 !important; /* Outstandingly legible Slate-200, no more dim text */
+}
+
+.dark-theme label {
+  color: #f8fafc !important;
+}
+
+/* Sidebar Custom Redesign for Dark Theme */
+.dark-theme nav.fixed {
+  background-color: #070a14 !important;
+  border-right: 1.5px solid #1e293b !important;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
+  width: 17rem !important; /* Perfectly matching sidebar column size */
+}
+
+.dark-theme nav .h-20 {
+  border-bottom: 1.5px solid #1e293b !important;
+}
+
+.dark-theme nav button {
+  font-weight: 600 !important;
+  padding: 0.875rem 1.25rem !important;
+  border-radius: 0.875rem !important;
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+  color: #cbd5e1 !important;
+}
+
+.dark-theme nav button:hover {
+  background-color: #121829 !important;
+  color: #ffffff !important;
+}
+
+/* Selected tab inside Navigation for Dark Theme */
+.dark-theme nav button.text-\[\#00C6FF\],
+.dark-theme nav button[class*="bg-gradient-to-r"] {
+  background-image: none !important;
+  background-color: rgba(0, 198, 255, 0.1) !important;
+  border-left: 4px solid #00C6FF !important;
+  color: #00C6FF !important;
+}
+
+.dark-theme nav button.text-\[\#00C6FF\] svg,
+.dark-theme nav button[class*="bg-gradient-to-r"] svg {
+  color: #00C6FF !important;
+}
+
+/* Forms & inputs inside dark theme */
+.dark-theme input,
+.dark-theme select,
+.dark-theme select option,
+.dark-theme textarea {
+  background-color: #121829 !important;
+  border: 2px solid #334155 !important; /* Steel bold contrast border */
+  color: #f8fafc !important;
+  font-weight: 500 !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 0.75rem !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-theme input:focus,
+.dark-theme select:focus,
+.dark-theme textarea:focus {
+  border-color: #00C6FF !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.2) !important;
+}
+
+.dark-theme select option {
+  background-color: #121829 !important;
+  color: #f8fafc !important;
+}
+
+/* Accent highlight colors in dark theme */
+.dark-theme .text-\[\#00C6FF\],
+.dark-theme .text-cyan-accent {
+  color: #00C6FF !important;
+  font-weight: 700 !important;
+}
+
+.dark-theme .text-\[\#7B61FF\],
+.dark-theme .text-purple-accent {
+  color: #907aff !important; /* Elevated lavender */
+  font-weight: 700 !important;
+}
+
+.dark-theme .text-\[\#00E38C\],
+.dark-theme .text-emerald-accent {
+  color: #00ff9d !important; /* Neon emerald */
+  font-weight: 700 !important;
+}
+
+.dark-theme .text-red-400,
+.dark-theme .text-\[\#FF4D4D\] {
+  color: #ff5252 !important;
+  font-weight: 700 !important;
+}
+
+/* Submit & Primary Action Buttons in Dark Theme */
+.dark-theme button[type="submit"],
+.dark-theme button[class*="bg-gradient-to-r"],
+.dark-theme button[class*="bg-gradient-to-tr"] {
+  background: linear-gradient(135deg, #00C6FF 0%, #7B61FF 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(0, 198, 255, 0.3) !important;
+  border: none !important;
+}
+
+.dark-theme button[type="submit"]:hover,
+.dark-theme button[class*="bg-gradient-to-r"]:hover,
+.dark-theme button[class*="bg-gradient-to-tr"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 198, 255, 0.45) !important;
+}
+
+/* Chat bubble overrides for Dark Theme */
+.dark-theme .light-theme-bubble,
+.dark-theme div[class*="rounded-tl-none"].bg-white\/\[0\.03\] {
+  background-color: #1a2238 !important;
+  border: 1.5px solid #334155 !important;
+  color: #f8fafc !important;
+}
+
+.dark-theme div[class*="rounded-tr-none"].bg-gradient-to-br {
+  background: linear-gradient(135deg, #00C6FF 0%, #7B61FF 100%) !important;
+  color: #ffffff !important;
+}
+
+.dark-theme form input {
+  background-color: #121829 !important;
+  border: 2px solid #7b61ff !important;
+  color: #f8fafc !important;
+}
+
+.dark-theme  .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #121829 !important;
+  border: 1.5px solid #334155 !important;
+  color: #f8fafc !important;
+}
+
+
